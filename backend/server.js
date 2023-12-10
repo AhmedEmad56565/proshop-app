@@ -4,7 +4,8 @@ import morgan from 'morgan';
 dotenv.config();
 import connectDB from './config/db.js';
 
-import products from './data/products.js';
+import productRoutes from './routes/productRoutes.js';
+import { errorHandler, notFound } from './middleware/errorMiddlware.js';
 
 const app = express();
 
@@ -12,15 +13,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.get('/api/products', (req, res) => {
-  res.json(products);
-});
+app.use('/api/products', productRoutes);
 
-app.get('/api/products/:id', (req, res) => {
-  const { id } = req.params;
-  const product = products.find((product) => product._id === id);
-  res.json(product);
-});
+app.use('*', notFound);
+app.use(errorHandler);
 
 connectDB();
 app.listen(process.env.PORT, () => {
