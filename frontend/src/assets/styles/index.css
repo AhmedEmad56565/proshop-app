@@ -1,3 +1,7 @@
+body {
+  background-color: #ecf0f1;
+}
+
 .rating span {
   margin: 0.1rem;
 }
