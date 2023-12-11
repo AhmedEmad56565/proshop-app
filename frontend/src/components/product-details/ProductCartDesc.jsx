@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../store/slices/cartSlice';
+import { addToCart } from '../../store/slices/cartSlice';
 import { Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap';
 
 export default function ProductCartDesc({ product }) {
@@ -11,7 +11,7 @@ export default function ProductCartDesc({ product }) {
 
   function handleAddToCart() {
     dispatch(addToCart({ ...product, qty }));
-    navigate('/');
+    navigate('/cart');
   }
 
   return (

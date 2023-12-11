@@ -9,9 +9,7 @@ export default function updateCart(state) {
   );
 
   //calculate shipping price
-  state.shippingPrice = addDecimal(
-    state.itemsPrice > 100 && state.itemsPrice !== 0 ? 0 : 10
-  );
+  state.shippingPrice = addDecimal(state.itemsPrice > 100 ? 0 : 10);
 
   //calculate tax price
   state.taxPrice = addDecimal(Number(state.itemsPrice * 0.15));

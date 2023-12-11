@@ -4,8 +4,8 @@ import { useGetSingleProductQuery } from '../store/slices/productsApiSlice';
 
 import Loader from '../components/Loader';
 import AlertMessage from '../components/AlertMessage';
-import ProductDesc from '../components/ProductDesc';
-import ProductCartDesc from '../components/ProductCartDesc';
+import ProductDesc from '../components/product-details/ProductDesc';
+import ProductCartDesc from '../components/product-details/ProductCartDesc';
 
 export default function ProductScreen() {
   const { id: productId } = useParams();

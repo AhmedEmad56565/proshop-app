@@ -1,9 +1,13 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../assets/logo.png';
 
 export default function Header() {
+  const { cartItems } = useSelector((state) => state.cart);
+  const totalQty = cartItems.reduce((acc, item) => acc + item.qty, 0);
+
   return (
     <header>
       <Navbar bg='primary' variant='dark' expand='md' collapseOnSelect>
@@ -18,7 +22,12 @@ export default function Header() {
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
-                  <FaShoppingCart /> cart
+                  <FaShoppingCart /> cart{' '}
+                  {totalQty > 0 && (
+                    <Badge bg='info' pill>
+                      {totalQty}
+                    </Badge>
+                  )}
                 </Nav.Link>
               </LinkContainer>
 
