@@ -7,7 +7,14 @@ import Input from '../components/Input';
 import Loader from '../components/Loader';
 import useAuth from '../hooks/useAuth';
 
-export default function LoginScreen() {
+export default function Register() {
+  const {
+    val: namelVal,
+    changeFunc: handleNameChange,
+    blurFunc: handleNameBlur,
+    err: nameError,
+  } = useInput('', (val) => val.length > 5);
+
   const {
     val: emailVal,
     changeFunc: handleEmailChange,
@@ -26,19 +33,40 @@ export default function LoginScreen() {
     // (val) => !val.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g)
   );
 
-  const { handleSubmit, redirect, loginLoading } = useAuth(
+  const {
+    val: confirmPasswordVal,
+    changeFunc: handleConfirmPasswordChange,
+    blurFunc: handleConfirmPasswordBlur,
+    err: confirmPassworddError,
+  } = useInput('', (val) => val.match(passwordVal));
+
+  const { handleSubmit, redirect, registerLoading } = useAuth(
     {
+      name: namelVal,
       email: emailVal,
       password: passwordVal,
     },
-    true
+    false
   );
 
   return (
     <FormContainer>
-      <h1>Log in</h1>
+      <h1>Register</h1>
 
       <Form onSubmit={handleSubmit}>
+        <Input
+          controlId='name'
+          label='Name'
+          type='text'
+          name='name'
+          placeholder='Enter your name'
+          err={nameError}
+          errText='Please enter valid name (at least 6 characters)'
+          value={namelVal}
+          onChange={handleNameChange}
+          onBlur={handleNameBlur}
+        />
+
         <Input
           controlId='email'
           label='Email Address'
@@ -65,21 +93,34 @@ export default function LoginScreen() {
           onBlur={handlePasswordBlur}
         />
 
-        <Button type='submit' className='mt-1 mb-2' disabled={loginLoading}>
-          Sign In
+        <Input
+          controlId='confirm-password'
+          label='Confirm Password'
+          type='password'
+          name='confirm-password'
+          placeholder='Confirm your password'
+          err={confirmPassworddError}
+          errText='The password you entered in not the same.'
+          value={confirmPasswordVal}
+          onChange={handleConfirmPasswordChange}
+          onBlur={handleConfirmPasswordBlur}
+        />
+
+        <Button type='submit' className='mt-1 mb-2' disabled={registerLoading}>
+          Register
         </Button>
       </Form>
 
       <Row className='py-3'>
         <Col>
-          New Customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
+          Already have an account?{' '}
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+            Login
           </Link>
         </Col>
       </Row>
 
-      {loginLoading && <Loader />}
+      {registerLoading && <Loader />}
     </FormContainer>
   );
 }
