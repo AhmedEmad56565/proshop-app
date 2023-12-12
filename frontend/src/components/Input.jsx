@@ -12,7 +12,7 @@ export default function Input({
 }) {
   return (
     <Form.Group className='my-2' controlId={controlId}>
-      <Form.Label>{label}</Form.Label>
+      <Form.Label className={err ? 'text-danger' : ''}>{label}</Form.Label>
       <Form.Control
         className={err ? 'invalid_input' : ''}
         type={type}
@@ -21,7 +21,7 @@ export default function Input({
         required
         {...props}
       />
-      {err && <span className='text-danger fs-6'>{errText}</span>}
+      {err && <small className='text-danger'>{errText}</small>}
     </Form.Group>
   );
 }

@@ -10,6 +10,7 @@ import useAuth from '../hooks/useAuth';
 export default function LoginScreen() {
   const {
     val: emailVal,
+    inputValIsInvalid: emailValIsInvalid,
     changeFunc: handleEmailChange,
     blurFunc: handleEmailBlur,
     err: emailError,
@@ -17,12 +18,13 @@ export default function LoginScreen() {
 
   const {
     val: passwordVal,
+    inputValIsInvalid: passwordValIsInvalid,
     changeFunc: handlePasswordChange,
     blurFunc: handlePasswordBlur,
     err: passwordError,
   } = useInput(
     '',
-    (val) => val.length > 5
+    (val) => val.trim().length > 5
     // (val) => !val.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g)
   );
 
@@ -33,6 +35,11 @@ export default function LoginScreen() {
     },
     true
   );
+
+  let formIsInvalid = true;
+  if (!emailValIsInvalid && !passwordValIsInvalid) {
+    formIsInvalid = false;
+  }
 
   return (
     <FormContainer>
@@ -65,7 +72,11 @@ export default function LoginScreen() {
           onBlur={handlePasswordBlur}
         />
 
-        <Button type='submit' className='mt-1 mb-2' disabled={loginLoading}>
+        <Button
+          type='submit'
+          className='mt-1 mb-2'
+          disabled={loginLoading || formIsInvalid}
+        >
           Sign In
         </Button>
       </Form>

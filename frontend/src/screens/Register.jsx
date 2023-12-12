@@ -10,13 +10,15 @@ import useAuth from '../hooks/useAuth';
 export default function Register() {
   const {
     val: namelVal,
+    inputValIsInvalid: nameValIsInvalid,
     changeFunc: handleNameChange,
     blurFunc: handleNameBlur,
     err: nameError,
-  } = useInput('', (val) => val.length > 5);
+  } = useInput('', (val) => val.trim().length > 5);
 
   const {
     val: emailVal,
+    inputValIsInvalid: emailValIsInvalid,
     changeFunc: handleEmailChange,
     blurFunc: handleEmailBlur,
     err: emailError,
@@ -24,17 +26,19 @@ export default function Register() {
 
   const {
     val: passwordVal,
+    inputValIsInvalid: passwordValIsInvalid,
     changeFunc: handlePasswordChange,
     blurFunc: handlePasswordBlur,
     err: passwordError,
   } = useInput(
     '',
-    (val) => val.length > 5
+    (val) => val.trim().length > 5
     // (val) => !val.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g)
   );
 
   const {
     val: confirmPasswordVal,
+    inputValIsInvalid: confirmPasswordValIsInvalid,
     changeFunc: handleConfirmPasswordChange,
     blurFunc: handleConfirmPasswordBlur,
     err: confirmPassworddError,
@@ -48,6 +52,16 @@ export default function Register() {
     },
     false
   );
+
+  let formIsInvalid = true;
+  if (
+    !nameValIsInvalid &&
+    !emailValIsInvalid &&
+    !passwordValIsInvalid &&
+    !confirmPasswordValIsInvalid
+  ) {
+    formIsInvalid = false;
+  }
 
   return (
     <FormContainer>
@@ -106,7 +120,11 @@ export default function Register() {
           onBlur={handleConfirmPasswordBlur}
         />
 
-        <Button type='submit' className='mt-1 mb-2' disabled={registerLoading}>
+        <Button
+          type='submit'
+          className='mt-1 mb-2'
+          disabled={registerLoading || formIsInvalid}
+        >
           Register
         </Button>
       </Form>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function useInput(defaultVal, validationFunc) {
+export default function useInput(defaultVal = '', validationFunc) {
   const [inputVal, setInputVal] = useState(defaultVal);
   const [inputTouched, setInputTouched] = useState(false);
 
@@ -12,10 +12,12 @@ export default function useInput(defaultVal, validationFunc) {
     setInputTouched(true);
   }
 
-  const inputIsInvalid = inputTouched && !validationFunc(inputVal);
+  const inputValIsInvalid = !validationFunc(inputVal);
+  const inputIsInvalid = inputTouched && inputValIsInvalid;
 
   return {
     val: inputVal,
+    inputValIsInvalid,
     changeFunc: handleInputChange,
     blurFunc: handleInputBlur,
     err: inputIsInvalid,
