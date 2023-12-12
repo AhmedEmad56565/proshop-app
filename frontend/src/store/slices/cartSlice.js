@@ -29,7 +29,12 @@ const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter((x) => x._id !== id);
       return updateCart(state);
     },
+
+    resetCart: (state) => {
+      state.cartItems = [];
+      localStorage.removeItem('cart');
+    },
   },
 });
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, resetCart } = cartSlice.actions;
 export default cartSlice;

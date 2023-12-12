@@ -57,3 +57,23 @@ table th {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
+
+.invalid_input {
+  border: 1px solid rgb(231, 76, 60);
+  outline: 1px solid rgb(231, 76, 60);
+}
+
+.invalid_input::placeholder {
+  color: rgb(231, 76, 60);
+}
+
+.invalid_input:focus {
+  border: 1px solid rgb(231, 76, 60);
+  outline: 1px solid rgb(231, 76, 60);
+  box-shadow: none;
+}
+
+#user-dropdown {
+  color: #ecf0f1;
+  font-weight: 600;
+}
