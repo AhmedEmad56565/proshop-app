@@ -42,7 +42,7 @@ const cartSlice = createSlice({
 
     resetCart: (state) => {
       state.cartItems = [];
-      localStorage.removeItem('cart');
+      return updateCart(state);
     },
   },
 });
