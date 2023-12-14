@@ -51,7 +51,6 @@ export default function HeaderNavbar() {
           id='user-dropdown'
           title={userInfo.name}
           variant='info'
-          className='ms-2'
         >
           <LinkContainer to='/profile'>
             <Dropdown.Item>Profile</Dropdown.Item>

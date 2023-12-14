@@ -53,6 +53,7 @@ export default function LoginScreen() {
           name='email'
           placeholder='Enter email'
           err={emailError}
+          required
           errText='Please enter valid Email Address'
           value={emailVal}
           onChange={handleEmailChange}
@@ -66,6 +67,7 @@ export default function LoginScreen() {
           name='password'
           placeholder='Enter password'
           err={passwordError}
+          required
           errText='Please enter valid Password (contain numbers and characters)'
           value={passwordVal}
           onChange={handlePasswordChange}

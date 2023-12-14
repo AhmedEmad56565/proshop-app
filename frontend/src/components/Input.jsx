@@ -18,7 +18,6 @@ export default function Input({
         type={type}
         name={name}
         placeholder={placeholder}
-        required
         {...props}
       />
       {err && <small className='text-danger'>{errText}</small>}

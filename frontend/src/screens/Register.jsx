@@ -75,6 +75,7 @@ export default function Register() {
           name='name'
           placeholder='Enter your name'
           err={nameError}
+          required
           errText='Please enter valid name (at least 6 characters)'
           value={namelVal}
           onChange={handleNameChange}
@@ -88,6 +89,7 @@ export default function Register() {
           name='email'
           placeholder='Enter email'
           err={emailError}
+          required
           errText='Please enter valid Email Address'
           value={emailVal}
           onChange={handleEmailChange}
@@ -101,6 +103,7 @@ export default function Register() {
           name='password'
           placeholder='Enter password'
           err={passwordError}
+          required
           errText='Please enter valid Password (contain numbers and characters)'
           value={passwordVal}
           onChange={handlePasswordChange}
