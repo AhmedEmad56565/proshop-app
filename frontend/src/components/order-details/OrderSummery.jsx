@@ -1,17 +1,21 @@
 import { useEffect } from 'react';
-import { Row, Col, ListGroup, Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Row, Col, ListGroup, Card, Button } from 'react-bootstrap';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 
 import {
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
+  useDeliverOrderMutation,
 } from '../../store/slices/ordersApiSlice';
 
 import Loader from '../Loader';
 
 export default function OrderSummery({ order, refetch, orderId }) {
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -20,6 +24,8 @@ export default function OrderSummery({ order, refetch, orderId }) {
     isLoading: loadingPayPal,
     error: errorPayPal,
   } = useGetPayPalClientIdQuery();
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -73,6 +79,17 @@ export default function OrderSummery({ order, refetch, orderId }) {
       });
   }
 
+  async function handleUpdateToDelivered() {
+    try {
+      await deliverOrder(orderId);
+      refetch();
+      toast.success('Order marked as delivered successfully');
+      refetch();
+    } catch (err) {
+      toast.error(err?.data?.message || 'Order is not Found');
+    }
+  }
+
   return (
     <Card className='rounded'>
       <ListGroup variant='flush'>
@@ -102,7 +119,18 @@ export default function OrderSummery({ order, refetch, orderId }) {
           </Row>
         </ListGroup.Item>
 
-        {!order.isPaid && (
+        {userInfo.isAdmin && order.isPaid && !order.isDelivered ? (
+          <ListGroup.Item>
+            {loadingDeliver && <Loader />}
+            <Button
+              className='w-100 text-light'
+              variant='success'
+              onClick={handleUpdateToDelivered}
+            >
+              Mark as Delivered
+            </Button>
+          </ListGroup.Item>
+        ) : !userInfo.isAdmin && !order.isPaid ? (
           <ListGroup.Item>
             {loadingPay && <Loader />}
 
@@ -118,7 +146,7 @@ export default function OrderSummery({ order, refetch, orderId }) {
               </div>
             )}
           </ListGroup.Item>
-        )}
+        ) : null}
       </ListGroup>
     </Card>
   );

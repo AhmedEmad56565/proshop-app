@@ -19,6 +19,11 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import AdminRoutes from './components/AdminRoutes';
+import ProductList from './screens/admin/ProductList';
+import UsersList from './screens/admin/UsersList';
+import OrderList from './screens/admin/OrderList';
+import ProductListEdit from './screens/admin/ProductListEdit';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +44,19 @@ const router = createBrowserRouter([
           { path: 'placeorder', element: <PlaceOrderScreen /> },
           { path: 'order/:id', element: <OrderScreen /> },
           { path: 'profile', element: <ProfileScreen /> },
+        ],
+      },
+      {
+        path: '',
+        element: <AdminRoutes />,
+        children: [
+          { path: 'admin/product-list', element: <ProductList /> },
+          { path: 'admin/user-list', element: <UsersList /> },
+          { path: 'admin/order-list', element: <OrderList /> },
+          {
+            path: 'admin/product/:id/edit',
+            element: <ProductListEdit />,
+          },
         ],
       },
     ],

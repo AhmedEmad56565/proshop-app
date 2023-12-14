@@ -45,7 +45,7 @@ export default function HeaderNavbar() {
         </Nav.Link>
       </LinkContainer>
 
-      {userInfo ? (
+      {userInfo && !userInfo.isAdmin ? (
         <DropdownButton
           size='sm'
           id='user-dropdown'
@@ -55,7 +55,29 @@ export default function HeaderNavbar() {
           <LinkContainer to='/profile'>
             <Dropdown.Item>Profile</Dropdown.Item>
           </LinkContainer>
+          <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+        </DropdownButton>
+      ) : userInfo && userInfo.isAdmin ? (
+        <DropdownButton
+          size='sm'
+          id='user-dropdown'
+          title={userInfo.name}
+          variant='info'
+        >
+          <LinkContainer to='/admin/product-list'>
+            <Dropdown.Item className='py-1 mb-1'>Products</Dropdown.Item>
+          </LinkContainer>
+
+          <LinkContainer to='/admin/user-list'>
+            <Dropdown.Item className='py-1 mb-1'>Users</Dropdown.Item>
+          </LinkContainer>
+
+          <LinkContainer to='/admin/order-list'>
+            <Dropdown.Item className='py-1 mb-1'>Orders</Dropdown.Item>
+          </LinkContainer>
+
           <Dropdown.Divider />
+
           <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
         </DropdownButton>
       ) : (
