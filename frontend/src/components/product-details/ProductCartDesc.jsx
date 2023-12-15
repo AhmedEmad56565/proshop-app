@@ -61,7 +61,11 @@ export default function ProductCartDesc({ product }) {
         )}
 
         <ListGroup.Item>
-          <Button className='w-100' onClick={handleAddToCart}>
+          <Button
+            className='w-100'
+            disabled={product.countInStock === 0}
+            onClick={handleAddToCart}
+          >
             Add To Cart
           </Button>
         </ListGroup.Item>

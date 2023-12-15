@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Col, ListGroup, Form, Button } from 'react-bootstrap';
-import { useCreateProductReviewMutation } from '../../store/slices/productsApiSlice';
+import { Row, Col, ListGroup, Form, Button } from 'react-bootstrap';
+import {
+  useCreateProductReviewMutation,
+  useDeleteProductReviewMutation,
+} from '../../store/slices/productsApiSlice';
 import { toast } from 'react-toastify';
 
 import Loader from '../Loader';
@@ -10,13 +13,26 @@ import AlertMessage from '../AlertMessage';
 import Rating from '../Rating';
 
 export default function ProductReview({ product, productId, refetch }) {
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(3);
   const [comment, setComment] = useState('');
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [createReview, { isLoading: loadingReview }] =
+  const [createReview, { isLoading: loadingCreateReview }] =
     useCreateProductReviewMutation();
+
+  const [deleteReview, { isLoading: loadingDeleteReview }] =
+    useDeleteProductReviewMutation();
+
+  async function handleDeleteReview() {
+    try {
+      await deleteReview(productId);
+      refetch();
+      toast.success('Review deleted successfully');
+    } catch (err) {
+      toast.error(err?.data?.message || 'Failed to delete review!');
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +40,8 @@ export default function ProductReview({ product, productId, refetch }) {
     try {
       const res = await createReview({ productId, rating, comment }).unwrap();
       refetch();
-      setRating(1);
+      setRating(3);
+      setComment('');
       toast.success(res.message || 'Review successfully added.');
     } catch (err) {
       toast.error(err?.data?.message || 'Error creating review!');
@@ -39,11 +56,28 @@ export default function ProductReview({ product, productId, refetch }) {
         <ListGroup variant='flush' className='mb-2'>
           {product.reviews.map((review) => (
             <ListGroup.Item key={review.user}>
-              <strong>{review.name}</strong>
-              <Rating value={review.rating} />
-              <p className='mt-1'>{review.createdAt.substring(0, 10)}</p>
-              <hr />
-              <p>- {review.comment}</p>
+              <Row>
+                <Col>
+                  <strong>{review.name}</strong>
+                  <Rating value={review.rating} />
+                  <p className='mt-1'>{review.createdAt.substring(0, 10)}</p>
+                  <hr />
+                  <p>- {review.comment}</p>
+                </Col>
+                {userInfo._id === review.user && (
+                  <Col className='text-end'>
+                    <Button
+                      type='button'
+                      variant='danger'
+                      className='text-light btn-sm'
+                      disabled={loadingDeleteReview}
+                      onClick={handleDeleteReview}
+                    >
+                      Delete
+                    </Button>
+                  </Col>
+                )}
+              </Row>
             </ListGroup.Item>
           ))}
         </ListGroup>
@@ -90,11 +124,12 @@ export default function ProductReview({ product, productId, refetch }) {
                 />
               </Form.Group>
 
-              <Button type='submit' disabled={loadingReview}>
+              <Button type='submit' disabled={loadingCreateReview}>
                 submit
               </Button>
 
-              {loadingReview && <Loader />}
+              {loadingCreateReview && <Loader />}
+              {loadingDeleteReview && <Loader />}
             </Form>
           )}
         </ListGroup.Item>
