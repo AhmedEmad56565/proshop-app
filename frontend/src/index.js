@@ -24,6 +24,7 @@ import ProductList from './screens/admin/ProductList';
 import UsersList from './screens/admin/UsersList';
 import OrderList from './screens/admin/OrderList';
 import ProductListEdit from './screens/admin/ProductListEdit';
+import UsersListEdit from './screens/admin/UsersListEdit';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: 'admin/product/:id/edit',
             element: <ProductListEdit />,
+          },
+          {
+            path: 'admin/user/:id/edit',
+            element: <UsersListEdit />,
           },
         ],
       },

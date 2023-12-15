@@ -24,7 +24,7 @@ export default function ProductList() {
   function handleAddProduct() {
     Swal.fire({
       title: 'Are you sure you want to add a new product?',
-      icon: 'question',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#303d4a',
       cancelButtonColor: '#e74c3c',
