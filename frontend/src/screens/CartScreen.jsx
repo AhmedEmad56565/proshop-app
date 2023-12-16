@@ -4,12 +4,14 @@ import { Row, Col } from 'react-bootstrap';
 import AlertMessage from '../components/AlertMessage';
 import CartItemsDetails from '../components/cart-details/CartItemsDetails';
 import CartSideDetails from '../components/cart-details/CartSideDetails';
+import Meta from '../components/Meta';
 
 export default function CartScreen() {
   const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <Row>
+      <Meta title='My Cart' />
       <h1 className='mb-4'>Shopping Cart</h1>
 
       <Col md={8}>

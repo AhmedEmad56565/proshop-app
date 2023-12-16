@@ -6,6 +6,7 @@ import { Row, Col } from 'react-bootstrap';
 import CheckoutSteps from '../components/CheckoutSteps';
 import PlaceOrderDetails from '../components/placeorder-details/PlaceOrderDetails';
 import PlaceOrderSummery from '../components/placeorder-details/PlaceOrderSummery';
+import Meta from '../components/Meta';
 
 export default function PlaceOrderScreen() {
   const cart = useSelector((state) => state.cart);
@@ -26,6 +27,7 @@ export default function PlaceOrderScreen() {
 
   return (
     <>
+      <Meta title='My Order' />
       <CheckoutSteps step1 step2 step3 step4 />
 
       <Row>

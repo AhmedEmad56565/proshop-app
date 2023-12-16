@@ -6,6 +6,7 @@ import { savePaymentMethod } from '../store/slices/cartSlice';
 
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 export default function PaymentScreen() {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -29,6 +30,7 @@ export default function PaymentScreen() {
 
   return (
     <FormContainer>
+      <Meta title='Payment Page' />
       <CheckoutSteps step1 step2 step3 />
 
       <h1>Payment Method</h1>

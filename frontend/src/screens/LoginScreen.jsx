@@ -6,6 +6,7 @@ import useInput from '../hooks/useInput';
 import Input from '../components/Input';
 import Loader from '../components/Loader';
 import useAuth from '../hooks/useAuth';
+import Meta from '../components/Meta';
 
 export default function LoginScreen() {
   const {
@@ -43,6 +44,7 @@ export default function LoginScreen() {
 
   return (
     <FormContainer>
+      <Meta title='Login Page' />
       <h1>Log in</h1>
 
       <Form onSubmit={handleSubmit}>

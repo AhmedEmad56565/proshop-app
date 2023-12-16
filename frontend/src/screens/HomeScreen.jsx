@@ -7,6 +7,7 @@ import Loader from '../components/Loader.jsx';
 import AlertMessage from '../components/AlertMessage.jsx';
 import Paginate from '../components/Paginate.jsx';
 import ProductsCarousel from '../components/Carousel.jsx';
+import Meta from '../components/Meta.jsx';
 
 export default function HomeScreen() {
   const { pageNumber, keyword } = useParams();
@@ -18,6 +19,7 @@ export default function HomeScreen() {
   return (
     <>
       {!keyword && <ProductsCarousel />}
+      <Meta />
       <h1>Latest Products</h1>
 
       {isLoading ? (

@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import AlertMessage from '../components/AlertMessage';
 import OrderDetails from '../components/order-details/OrderDetails';
 import OrderSummery from '../components/order-details/OrderSummery';
+import Meta from '../components/Meta';
 
 export default function OrderScreen() {
   const { id: orderId } = useParams();
@@ -25,6 +26,7 @@ export default function OrderScreen() {
     </AlertMessage>
   ) : (
     <>
+      <Meta title='Order Pay' />
       <h1>Order: {order._id}</h1>
 
       <Row>

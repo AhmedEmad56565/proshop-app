@@ -6,6 +6,7 @@ import useInput from '../hooks/useInput';
 import Input from '../components/Input';
 import Loader from '../components/Loader';
 import useAuth from '../hooks/useAuth';
+import Meta from '../components/Meta';
 
 export default function Register() {
   const {
@@ -65,6 +66,7 @@ export default function Register() {
 
   return (
     <FormContainer>
+      <Meta title='Register Page' />
       <h1>Register</h1>
 
       <Form onSubmit={handleSubmit}>

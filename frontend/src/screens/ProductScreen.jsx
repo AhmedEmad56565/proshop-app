@@ -7,6 +7,7 @@ import AlertMessage from '../components/AlertMessage';
 import ProductDesc from '../components/product-details/ProductDesc';
 import ProductCartDesc from '../components/product-details/ProductCartDesc';
 import ProductReview from '../components/product-details/ProductReview';
+import Meta from '../components/Meta';
 
 export default function ProductScreen() {
   const { id: productId, keyword } = useParams();
@@ -34,6 +35,7 @@ export default function ProductScreen() {
         </AlertMessage>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={5} className='mb-3'>
               <Image

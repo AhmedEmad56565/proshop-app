@@ -8,6 +8,7 @@ import useInput from '../hooks/useInput';
 import Input from '../components/Input';
 import { useEffect } from 'react';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 export default function ShippingScreen() {
   const { cartItems, shippingAddress } = useSelector((state) => state.cart);
@@ -80,6 +81,7 @@ export default function ShippingScreen() {
 
   return (
     <FormContainer>
+      <Meta title='Shipping Page' />
       <CheckoutSteps step1 step2 />
 
       <h1>Shipping</h1>
