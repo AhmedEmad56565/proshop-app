@@ -32,7 +32,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomeScreen /> },
+      { path: 'search/:keyword', element: <HomeScreen /> },
+      { path: 'page/:pageNumber', element: <HomeScreen /> },
       { path: 'product/:id', element: <ProductScreen /> },
+      { path: 'search/:keyword/page/:pageNumber', element: <HomeScreen /> },
       { path: 'cart', element: <CartScreen /> },
       { path: 'login', element: <LoginScreen /> },
       { path: 'register', element: <Register /> },
@@ -52,8 +55,14 @@ const router = createBrowserRouter([
         element: <AdminRoutes />,
         children: [
           { path: 'admin/product-list', element: <ProductList /> },
+          {
+            path: 'admin/product-list/page/:pageNumber',
+            element: <ProductList />,
+          },
           { path: 'admin/user-list', element: <UsersList /> },
+          { path: 'admin/user-list/page/:pageNumber', element: <UsersList /> },
           { path: 'admin/order-list', element: <OrderList /> },
+          { path: 'admin/order-list/page/:pageNumber', element: <OrderList /> },
           {
             path: 'admin/product/:id/edit',
             element: <ProductListEdit />,

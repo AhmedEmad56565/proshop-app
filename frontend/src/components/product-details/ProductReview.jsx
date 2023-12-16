@@ -64,7 +64,7 @@ export default function ProductReview({ product, productId, refetch }) {
                   <hr />
                   <p>- {review.comment}</p>
                 </Col>
-                {userInfo._id === review.user && (
+                {userInfo?._id === review.user && (
                   <Col className='text-end'>
                     <Button
                       type='button'

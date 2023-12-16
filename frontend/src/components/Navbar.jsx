@@ -9,6 +9,7 @@ import { Nav, Badge, Dropdown, DropdownButton } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import SearchBox from './SearchBox';
 
 export default function HeaderNavbar() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -34,6 +35,7 @@ export default function HeaderNavbar() {
 
   return (
     <Nav className='ms-auto align-items-md-center'>
+      <SearchBox />
       <LinkContainer to='/cart'>
         <Nav.Link>
           <FaShoppingCart /> cart{' '}

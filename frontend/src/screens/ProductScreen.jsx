@@ -9,7 +9,7 @@ import ProductCartDesc from '../components/product-details/ProductCartDesc';
 import ProductReview from '../components/product-details/ProductReview';
 
 export default function ProductScreen() {
-  const { id: productId } = useParams();
+  const { id: productId, keyword } = useParams();
 
   const {
     data: product,
@@ -20,9 +20,11 @@ export default function ProductScreen() {
 
   return (
     <>
-      <Link className='btn btn-primary my-3' to='/'>
-        Go Back
-      </Link>
+      {!keyword && (
+        <Link className='btn btn-primary my-3' to='/'>
+          Go Back
+        </Link>
+      )}
 
       {isLoading ? (
         <Loader />

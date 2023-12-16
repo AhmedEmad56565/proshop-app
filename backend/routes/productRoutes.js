@@ -9,10 +9,13 @@ import {
   updateProduct,
   createReview,
   deleteReview,
+  getTopProducts,
 } from '../controllers/productController.js';
 import { admin, protect } from '../middleware/authMiddleware.js';
 
 router.route('/').get(getAllProducts).post(protect, admin, createProduct);
+
+router.get('/top', getTopProducts);
 
 router
   .route('/:id')

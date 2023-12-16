@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
@@ -11,9 +12,13 @@ import {
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 import AlertMessage from '../../components/AlertMessage';
+import AdminPaginate from './AdminPaginate';
 
 export default function ProductList() {
-  const { data: products, refetch, isLoading, error } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, refetch, isLoading, error } = useGetProductsQuery({
+    pageNumber,
+  });
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -104,7 +109,7 @@ export default function ProductList() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -129,6 +134,19 @@ export default function ProductList() {
               ))}
             </tbody>
           </Table>
+
+          {/* <Row className={'justify-content-md-center'}> */}
+          <Row className={'justify-content-center'}>
+            <Col md={6}>
+              {!isLoading && (
+                <AdminPaginate
+                  pages={data.pages}
+                  page={data.page}
+                  routeName='product'
+                />
+              )}
+            </Col>
+          </Row>
 
           {loadingCreate && <Loader />}
           {loadingDelete && <Loader />}

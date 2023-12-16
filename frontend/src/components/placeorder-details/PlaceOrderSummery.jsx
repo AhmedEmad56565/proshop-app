@@ -60,7 +60,9 @@ export default function PlaceOrderSummery({ cart }) {
         <ListGroup.Item>
           <Row>
             <Col>Total</Col>
-            <Col>${cart.totalPrice}</Col>
+            <Col>
+              <strong className='text-danger'>${cart.totalPrice}</strong>
+            </Col>
           </Row>
         </ListGroup.Item>
 

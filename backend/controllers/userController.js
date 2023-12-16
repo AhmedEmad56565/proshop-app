@@ -90,10 +90,16 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   GET /api/users
 // @access  Private/Admin
 export const getUsers = asyncHandler(async (req, res, next) => {
-  const users = await User.find({});
+  const pageSize = 4;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await User.countDocuments();
+
+  const users = await User.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
 
   if (users) {
-    res.status(200).json(users);
+    res.status(200).json({ users, page, pages: Math.ceil(count / pageSize) });
   } else {
     res.status(404);
     throw new Error('Failed to get users!');
